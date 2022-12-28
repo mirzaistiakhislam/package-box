@@ -1,43 +1,54 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 
-const Login = () => {
-
+const SignUp = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { signIn } = useContext(AuthContext);
-    const [loginError, setLoginError] = useState('');
-    const location = useLocation();
-    const navigate = useNavigate();
+    const { createUser, updateUser } = useContext(AuthContext);
+    const [signUpError, setSignUpError] = useState('');
 
-    const from = location.state?.from?.pathname || '/';
-
-    const handleLogin = data => {
+    const handleSignUp = (data) => {
         console.log(data);
-        setLoginError('');
-        signIn(data.email, data.password)
+        setSignUpError('');
+        createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                navigate(from, { replace: true });
+                toast.success('user created successfully');
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(() => { })
+                    .catch(error => console.error(error));
             })
             .catch(error => {
-                console.error(error.message);
-                setLoginError(error.message);
+                console.error(error)
+                setSignUpError(error.message);
             })
     }
-
 
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>
-                <h2 className='text-xl text-center'>Login</h2>
-                <form onSubmit={handleSubmit(handleLogin)}>
+                <h2 className='text-xl text-center'>Sign Up</h2>
+                <form onSubmit={handleSubmit(handleSignUp)}>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"><span className="label-text">Name</span></label>
+                        <input type="text"
+                            {...register("name", {
+                                required: "Name is Required"
+                            })}
+                            className="input input-bordered w-full max-w-xs" />
+                        {errors.name && <p className='text-red-600'>{errors.name?.message}</p>}
+                        <input />
+                    </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label"><span className="label-text">Email</span></label>
-                        <input type="text"
+                        <input type="email"
                             {...register("email", {
                                 required: "Email Address is Required"
                             })}
@@ -55,17 +66,16 @@ const Login = () => {
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                         <input />
-                        <label className="label"><span className="label-text">Forget Password?</span></label>
                     </div>
 
                     {/* <textarea {...register("aboutYou")} placeholder="About you" /> */}
                     {/* <p>{data}</p> */}
-                    <input className='btn btn-accent w-full' value='Login' type="submit" />
+                    <input className='btn btn-accent w-full' value='Sign Up' type="submit" />
                     <div>
-                        {loginError && <p className='text-red-600'>{loginError}</p>}
+                        {signUpError && <p className='text-red-600'>{signUpError}</p>}
                     </div>
                 </form>
-                <p>New to Package Box <Link className='text-secondary' to='/signup'>Create new account</Link></p>
+                <p>Already have an account? <Link className='text-secondary' to='/login'>Please Login</Link></p>
                 <div className="divider">OR</div>
                 <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
@@ -73,4 +83,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SignUp;
