@@ -1,10 +1,13 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../../context/AuthProvider';
 
-const PlacingOrderModal = ({ pack, setPack, selectedDate }) => {
+const PlacingOrderModal = ({ pack, setPack, selectedDate, refetch }) => {
 
-    const { name, slots } = pack;
+    const { name: packName, slots } = pack;
     const date = format(selectedDate, 'PP');
+    const { user } = useContext(AuthContext);
 
     const handlePlacingOrder = event => {
         event.preventDefault();
@@ -14,17 +17,36 @@ const PlacingOrderModal = ({ pack, setPack, selectedDate }) => {
         const email = form.email.value;
         const phone = form.phone.value;
 
-        const placingOrder = {
+        const buying = {
             orderDate: date,
-            pack: name,
+            pack: packName,
             buyer: name,
             slot,
             email,
-            phone
+            phone,
         }
 
-        console.log(placingOrder);
-        setPack(null);
+        // console.log(placingOrder);
+        fetch('http://localhost:5000/buyings', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(buying)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.acknowledged) {
+                    setPack(null);
+                    toast.success('Place your order confirmed');
+                    refetch();
+                }
+                else {
+                    toast.error(data.message);
+                }
+            })
+
     }
 
     return (
@@ -33,7 +55,7 @@ const PlacingOrderModal = ({ pack, setPack, selectedDate }) => {
             <div className="modal">
                 <div className="modal-box relative">
                     <label htmlFor="placing-order-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="text-lg font-bold">{name}</h3>
+                    <h3 className="text-lg font-bold">{packName}</h3>
 
                     <form onSubmit={handlePlacingOrder} className='grid grid-cols-1 gap-3 mt-10'>
                         <input type="text" value={date} className="input w-full input-bordered" disabled />
@@ -46,8 +68,8 @@ const PlacingOrderModal = ({ pack, setPack, selectedDate }) => {
                                 )
                             }
                         </select>
-                        <input name='name' type="text" placeholder="Your Name" className="input w-full input-bordered" />
-                        <input name='email' type="email" placeholder="Email Address" className="input w-full input-bordered" />
+                        <input name='name' type="text" placeholder="Your Name" defaultValue={user?.displayName} disabled className="input w-full input-bordered" />
+                        <input name='email' type="email" placeholder="Email Address" defaultValue={user?.email} disabled className="input w-full input-bordered" />
                         <input name='phone' type="text" placeholder="Phone Number" className="input w-full input-bordered" />
                         <br />
                         <input className='btn btn-accent w-full ' type="submit" value="Submit" />
