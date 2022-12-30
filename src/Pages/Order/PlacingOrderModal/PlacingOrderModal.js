@@ -1,12 +1,17 @@
 import { format } from 'date-fns';
 import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
+import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider';
 
-const PlacingOrderModal = ({ pack, setPack, selectedDate, refetch }) => {
+const PlacingOrderModal = ({ pack, setPack, selectedStartDate, setSelectedStartDate, selectedEndDate, setSelectedEndDate, refetch }) => {
+
+    const location = useLocation();
+    console.log(location);
 
     const { name: packName, slots } = pack;
-    const date = format(selectedDate, 'PP');
+    const startDate = format(selectedStartDate, 'PP');
+    const endDate = format(selectedEndDate, 'PP');
     const { user } = useContext(AuthContext);
 
     const handlePlacingOrder = event => {
@@ -18,7 +23,8 @@ const PlacingOrderModal = ({ pack, setPack, selectedDate, refetch }) => {
         const phone = form.phone.value;
 
         const buying = {
-            orderDate: date,
+            orderStartDate: startDate,
+            orderEndDate: endDate,
             pack: packName,
             buyer: name,
             slot,
@@ -44,6 +50,7 @@ const PlacingOrderModal = ({ pack, setPack, selectedDate, refetch }) => {
                 }
                 else {
                     toast.error(data.message);
+                    setPack(null);
                 }
             })
 
@@ -58,7 +65,8 @@ const PlacingOrderModal = ({ pack, setPack, selectedDate, refetch }) => {
                     <h3 className="text-lg font-bold">{packName}</h3>
 
                     <form onSubmit={handlePlacingOrder} className='grid grid-cols-1 gap-3 mt-10'>
-                        <input type="text" value={date} className="input w-full input-bordered" disabled />
+                        <input type="text" value={startDate} className="input w-full input-bordered" disabled />
+                        <input type="text" value={endDate} className="input w-full input-bordered" disabled />
                         <select name='slot' className="select select-bordered w-full">
                             {
                                 slots.map((slot, i) => <option

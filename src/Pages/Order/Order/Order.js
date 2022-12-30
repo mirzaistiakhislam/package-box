@@ -3,16 +3,22 @@ import AvailableOrders from '../AvailableOrders/AvailableOrders';
 import OrderBanner from '../OrderBanner/OrderBanner';
 
 const Order = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedStartDate, setSelectedStartDate] = useState(new Date());
+    const [selectedEndDate, setSelectedEndDate] = useState(new Date());
     return (
         <div>
             <OrderBanner
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
+                selectedStartDate={selectedStartDate}
+                setSelectedStartDate={setSelectedStartDate}
+                selectedEndDate={selectedEndDate}
+                setSelectedEndDate={setSelectedEndDate}
             ></OrderBanner>
+
             <AvailableOrders
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
+                selectedStartDate={selectedStartDate}
+                setSelectedStartDate={setSelectedStartDate}
+                selectedEndDate={selectedEndDate}
+                setSelectedEndDate={setSelectedEndDate}
             ></AvailableOrders>
         </div>
     );
