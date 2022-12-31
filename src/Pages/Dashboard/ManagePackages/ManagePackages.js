@@ -78,7 +78,7 @@ const ManagePackages = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td>{pack.name}</td>
+                                <td>{pack.name} TAKA</td>
                                 <td>
                                     <label onClick={() => setDeletingPackage(pack)} htmlFor="confirmation-modal" className="btn btn-sm btn-error">Delete</label>
                                 </td>

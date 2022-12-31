@@ -28,7 +28,7 @@ const OrderOption = ({ orderOption, setPack }) => {
                 <img src={img1} alt="Album" />
             </figure>
             <div className="card-body flex justify-between">
-                <h2 className="card-title flex justify-center text-2xl text-secondary text-center">SUBSCRIPTION PACKAGE: <span className='font-bold'>{name}</span> </h2>
+                <h2 className="card-title flex justify-center text-2xl text-secondary text-center">SUBSCRIPTION PACKAGE: <span className='font-bold'>{name} TAKA</span> </h2>
                 {/* <p>{slots.length > 0 ? slots[0] : 'Try Another Day'}</p>
                 <p>{slots.length} {slots.length > 1 ? 'slots' : 'slot'} available</p> */}
                 <div className='w-24 flex justify-start'>

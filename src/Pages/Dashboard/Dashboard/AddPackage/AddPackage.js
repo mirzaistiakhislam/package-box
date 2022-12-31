@@ -11,18 +11,17 @@ const AddPackage = () => {
     // const imageHostKey = process.env.REACT_APP_imgbb_key;
 
     const { data: packages, isLoading } = useQuery({
-        queryKey: ['package, slots'],
+        queryKey: ['package'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/orderPackage');
             const data = await res.json();
-            // console.log(data[0].slots);
             return data;
         }
     });
 
 
     const handleAddProduct = data => {
-        // console.log(data[0].slots);
+
 
         const pack = {
             name: data.package,
@@ -32,7 +31,6 @@ const AddPackage = () => {
             img4: data.img4,
             img5: data.img5,
             img6: data.img6,
-            // slots: data[0].slots
         }
 
         fetch('http://localhost:5000/orderOptions', {

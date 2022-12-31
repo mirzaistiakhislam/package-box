@@ -6,7 +6,7 @@ import { AuthContext } from '../../../context/AuthProvider';
 
 const PlacingOrderModal = ({ pack, setPack, selectedStartDate, setSelectedStartDate, selectedEndDate, setSelectedEndDate, refetch }) => {
 
-    const { name: packName, slots } = pack;
+    const { name: packName } = pack;
     const startDate = format(selectedStartDate, 'PP');
     const endDate = format(selectedEndDate, 'PP');
     const { user } = useContext(AuthContext);
@@ -14,7 +14,7 @@ const PlacingOrderModal = ({ pack, setPack, selectedStartDate, setSelectedStartD
     const handlePlacingOrder = event => {
         event.preventDefault();
         const form = event.target;
-        // const slot = form.slot.value;
+
         const name = form.name.value;
         const email = form.email.value;
         const phone = form.phone.value;

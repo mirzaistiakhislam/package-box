@@ -44,7 +44,7 @@ const MyOrder = () => {
                             buyings?.map((buy, i) => <tr key={buy._id}>
                                 <th>{i + 1}</th>
                                 <td>{buy.buyer}</td>
-                                <td>{buy.pack}</td>
+                                <td>{buy.pack} TAKA</td>
                                 <td>{buy.orderStartDate} - {buy.orderEndDate}</td>
                                 <td>{buy.deliveryTime}</td>
                                 <td>
@@ -59,7 +59,7 @@ const MyOrder = () => {
                                         </Link>
                                     }
                                     {
-                                        buy.paid && <span className='text-primary'>Paid</span>
+                                        buy.paid && <span className='text-green-500'>Paid</span>
                                     }
                                 </td>
                             </tr>)
