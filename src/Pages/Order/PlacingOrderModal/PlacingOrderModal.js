@@ -6,9 +6,6 @@ import { AuthContext } from '../../../context/AuthProvider';
 
 const PlacingOrderModal = ({ pack, setPack, selectedStartDate, setSelectedStartDate, selectedEndDate, setSelectedEndDate, refetch }) => {
 
-    const location = useLocation();
-    console.log(location);
-
     const { name: packName, slots } = pack;
     const startDate = format(selectedStartDate, 'PP');
     const endDate = format(selectedEndDate, 'PP');
@@ -17,19 +14,22 @@ const PlacingOrderModal = ({ pack, setPack, selectedStartDate, setSelectedStartD
     const handlePlacingOrder = event => {
         event.preventDefault();
         const form = event.target;
-        const slot = form.slot.value;
+        // const slot = form.slot.value;
         const name = form.name.value;
         const email = form.email.value;
         const phone = form.phone.value;
+        const deliveryAddress = form.deliveryAddress.value;
+        const deliveryTime = form.deliveryTime.value;
 
         const buying = {
             orderStartDate: startDate,
             orderEndDate: endDate,
             pack: packName,
             buyer: name,
-            slot,
+            deliveryTime,
             email,
             phone,
+            deliveryAddress,
         }
 
         // console.log(placingOrder);
@@ -67,7 +67,7 @@ const PlacingOrderModal = ({ pack, setPack, selectedStartDate, setSelectedStartD
                     <form onSubmit={handlePlacingOrder} className='grid grid-cols-1 gap-3 mt-10'>
                         <input type="text" value={startDate} className="input w-full input-bordered" disabled />
                         <input type="text" value={endDate} className="input w-full input-bordered" disabled />
-                        <select name='slot' className="select select-bordered w-full">
+                        {/* <select name='slot' className="select select-bordered w-full">
                             {
                                 slots.map((slot, i) => <option
                                     value={slot}
@@ -75,10 +75,12 @@ const PlacingOrderModal = ({ pack, setPack, selectedStartDate, setSelectedStartD
                                 >{slot}</option>
                                 )
                             }
-                        </select>
+                        </select> */}
+                        <input name='deliveryTime' type="text" placeholder=" Enter Expected Delivery Time (10AM - 10PM)" className="input w-full input-bordered" />
                         <input name='name' type="text" placeholder="Your Name" defaultValue={user?.displayName} disabled className="input w-full input-bordered" />
                         <input name='email' type="email" placeholder="Email Address" defaultValue={user?.email} disabled className="input w-full input-bordered" />
                         <input name='phone' type="text" placeholder="Phone Number" className="input w-full input-bordered" />
+                        <input name='deliveryAddress' type="text" placeholder="Delivery Address" className="input w-full input-bordered" />
                         <br />
                         <input className='btn btn-accent w-full ' type="submit" value="Submit" />
                     </form>

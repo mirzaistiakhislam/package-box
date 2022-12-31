@@ -1,8 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 const AllUsers = () => {
+
+    // const [deletingPackage, setDeletingPackage] = useState(null);
+
+    // const closeModal = () => {
+    //     setDeletingPackage(null);
+    // }
 
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],

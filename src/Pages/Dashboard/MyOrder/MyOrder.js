@@ -33,17 +33,18 @@ const MyOrder = () => {
                             <th>Name</th>
                             <th>Package</th>
                             <th>Date</th>
-                            <th>Time</th>
+                            <th>Delivery Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            buyings.map((buy, i) => <tr key={buy._id}>
+                            buyings &&
+                            buyings?.map((buy, i) => <tr key={buy._id}>
                                 <th>{i + 1}</th>
                                 <td>{buy.buyer}</td>
                                 <td>{buy.pack}</td>
-                                <td>{buy.orderDate}</td>
-                                <td>{buy.slot}</td>
+                                <td>{buy.orderStartDate} - {buy.orderEndDate}</td>
+                                <td>{buy.deliveryTime}</td>
                             </tr>)
                         }
                     </tbody>

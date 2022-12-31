@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
-import banner from '../../../assets/Banner.jpg';
-import { DayPicker, DateRange } from 'react-day-picker';
-// import { format } from 'date-fns';
-import { addDays, format } from 'date-fns';
-// import { , DayPicker } from 'react-day-picker';
-
-// const pastMonth = new Date(2020, 10, 15);
-
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
+import { addDays } from 'date-fns';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
-// import { addDays } from 'date-fns';
+
 
 const OrderBanner = ({ selectedStartDate, setSelectedStartDate, selectedEndDate, setSelectedEndDate }) => {
 
@@ -21,13 +14,14 @@ const OrderBanner = ({ selectedStartDate, setSelectedStartDate, selectedEndDate,
             key: 'selection'
         }
     ]);
-    // console.log(format(state[0].startDate, 'PP'));
+
     setSelectedStartDate(state[0].startDate);
     setSelectedEndDate(state[0].endDate);
-    // const date = format(selectedDate, 'PP');
+
 
     return (
         <DateRangePicker
+            className='w-full flex justify-center'
             onChange={item => setState([item.selection])}
             showSelectionPreview={true}
             moveRangeOnFirstSelection={false}
