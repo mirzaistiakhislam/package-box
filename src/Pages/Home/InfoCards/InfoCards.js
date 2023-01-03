@@ -10,28 +10,28 @@ const InfoCards = () => {
         {
             id: 1,
             name: 'Opening Hours',
-            description: 'Open 9.00am to 5.00pm everday',
+            description: 'Open 8.00am to 10.00pm everday',
             icon: clock,
             bgClass: 'bg-gradient-to-r from-primary to-secondary'
         },
         {
             id: 2,
             name: 'Our Location',
-            description: 'Open 9.00am to 5.00pm everday',
+            description: 'Mirpur-1, Dhaka',
             icon: marker,
             bgClass: 'bg-accent'
         },
         {
             id: 3,
             name: 'Contact Us',
-            description: 'Open 9.00am to 5.00pm everday',
+            description: '01611-702716',
             icon: phone,
             bgClass: 'bg-gradient-to-r from-primary to-secondary'
         }
     ]
 
     return (
-        <div className='grid mt-8 gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+        <div className='grid mt-8 gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 '>
             {
                 cardData.map(card => <InfoCard
                     key={card.id}

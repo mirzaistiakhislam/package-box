@@ -35,7 +35,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/order',
-                element: <Order></Order>
+                element: <PrivateRoute><Order></Order></PrivateRoute>
             }
         ]
     },
@@ -62,7 +62,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/payment/:id',
-                element: <AdminRoute><Payment></Payment></AdminRoute>,
+                element: <Payment></Payment>,
                 loader: ({ params }) => fetch(`http://localhost:5000/buyings/${params.id}`)
             },
         ]

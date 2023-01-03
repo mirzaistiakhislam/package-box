@@ -62,7 +62,7 @@ const PlacingOrderModal = ({ pack, setPack, selectedStartDate, setSelectedStartD
             <div className="modal">
                 <div className="modal-box relative">
                     <label htmlFor="placing-order-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="text-lg font-bold">{packName}</h3>
+                    <h3 className="text-lg font-bold text-primary text-center">Package: <strong>{packName}</strong> Taka</h3>
 
                     <form onSubmit={handlePlacingOrder} className='grid grid-cols-1 gap-3 mt-10'>
                         <input type="text" value={startDate} className="input w-full input-bordered" disabled />

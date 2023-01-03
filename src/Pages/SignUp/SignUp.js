@@ -21,13 +21,14 @@ const SignUp = () => {
     const handleSignUp = (data) => {
         // console.log(data);
         setSignUpError('');
-        createUser(data.email, data.password)
+        createUser(data.email, data.password, data.photoURL)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                // console.log(user);
                 toast.success('user created successfully');
                 const userInfo = {
-                    displayName: data.name
+                    displayName: data.name,
+                    photoURL: data.photoURL
                 }
                 updateUser(userInfo)
                     .then(() => {
@@ -93,6 +94,7 @@ const SignUp = () => {
                         {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
 
                     </div>
+
                     <div className="form-control w-full max-w-xs">
                         <label className="label"><span className="label-text">Password</span></label>
                         <input type="password"
@@ -102,16 +104,24 @@ const SignUp = () => {
                             })}
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
-
                     </div>
-                    <input className='btn btn-accent w-full' value='Sign Up' type="submit" />
+
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label"><span className="label-text">Photo URL</span></label>
+                        <input type="photoURL"
+                            {...register("photoURL", {
+                                required: "photo is Required"
+                            })}
+                            className="input input-bordered w-full max-w-xs" />
+                        {errors.photoURL && <p className='text-red-600'>{errors.photoURL?.photoURL}</p>}
+                    </div>
+
+                    <input className='btn btn-accent w-full mt-4' value='Sign Up' type="submit" />
                     <div>
                         {signUpError && <p className='text-red-600'>{signUpError}</p>}
                     </div>
                 </form>
-                <p>Already have an account? <Link className='text-secondary' to='/login'>Please Login</Link></p>
-                <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <p className='text-center'>Already have an account? <Link className='text-secondary' to='/login'>Please Login</Link></p>
             </div>
         </div>
     );

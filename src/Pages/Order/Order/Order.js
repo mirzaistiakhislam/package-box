@@ -7,6 +7,7 @@ const Order = () => {
     const [selectedEndDate, setSelectedEndDate] = useState(new Date());
     return (
         <div>
+            <h2 className='text-center text-5xl my-16 text-primary'>Choose Your Subscription Date</h2>
             <OrderBanner
                 selectedStartDate={selectedStartDate}
                 setSelectedStartDate={setSelectedStartDate}

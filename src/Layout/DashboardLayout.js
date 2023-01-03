@@ -7,7 +7,7 @@ import Navbar from '../Pages/Shared/Navbar/Navbar';
 const DashboardLayout = () => {
 
     const { user } = useContext(AuthContext);
-    const [isAdmin] = useAdmin(user?.email)
+    const [isAdmin] = useAdmin(user?.email);
 
     return (
         <div>
