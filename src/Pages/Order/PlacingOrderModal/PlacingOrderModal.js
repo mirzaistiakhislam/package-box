@@ -82,7 +82,12 @@ const PlacingOrderModal = ({ pack, setPack, selectedStartDate, setSelectedStartD
                         <input name='phone' type="text" placeholder="Phone Number" className="input w-full input-bordered" />
                         <input name='deliveryAddress' type="text" placeholder="Delivery Address" className="input w-full input-bordered" />
                         <br />
-                        <input className='btn btn-accent w-full ' type="submit" value="Submit" />
+                        {
+                            user ?
+                                <input className='btn btn-accent w-full ' type="submit" value="Submit" />
+                                :
+                                <input className='btn btn-accent w-full' disabled type="submit" value="Submit" />
+                        }
                     </form>
                 </div>
             </div>

@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const OrderOption = ({ orderOption, setPack }) => {
 
     const { name, img1, img2, img3, img4, img5, img6 } = orderOption;
     console.log(orderOption);
+    const { user } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+
+    // const goToLogin = () => {
+    //     console.log('hm');
+    //     // navigate("/login");
+    //     <Navigate to='/login' state={{ from: location }} replace></Navigate>;
+    // }
 
     return (
         // <div className="card shadow-xl">
@@ -39,11 +51,23 @@ const OrderOption = ({ orderOption, setPack }) => {
                     <img src={img6} alt="" />
                 </div>
                 <div className="">
-                    <label
-                        htmlFor="placing-order-modal"
-                        className="btn btn-accent text-white w-full flex self-end "
-                        onClick={() => setPack(orderOption)}
-                    >Place Order</label>
+                    {
+                        user ?
+                            <label
+                                htmlFor="placing-order-modal"
+                                className="btn btn-accent text-white w-full flex self-end "
+                                onClick={() => setPack(orderOption)}
+                            >Place Order</label>
+                            :
+                            <Link to='/login'>
+                                <label
+                                    htmlFor="placing-order-modal"
+                                    className="btn btn-accent text-white w-full flex self-end "
+
+                                >Please Login</label>
+                            </Link>
+
+                    }
                 </div>
             </div>
         </div>

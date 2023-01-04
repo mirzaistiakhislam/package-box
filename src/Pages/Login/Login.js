@@ -1,10 +1,11 @@
-import { GoogleAuthProvider } from 'firebase/auth';
-import React, { useContext, useState } from 'react';
+// import { GoogleAuthProvider, sendPasswordResetEmail } from 'firebase/auth';
+import React, { useContext, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import useToken from '../../hooks/useToken';
+
 
 const Login = () => {
 
@@ -16,10 +17,18 @@ const Login = () => {
     const [token] = useToken(loginUserEmail);
     const location = useLocation();
     const navigate = useNavigate();
+    const emailField = useRef();
+
 
     const from = location.state?.from?.pathname || '/';
+    console.log(from);
+    const { user } = useContext(AuthContext);
+
 
     if (token) {
+        navigate(from, { replace: true });
+    }
+    if (user) {
         navigate(from, { replace: true });
     }
 
@@ -33,6 +42,8 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 setLoginUserEmail(data.email);
+                // useok(user?.email);
+                // useToken(user?.email);
             })
             .catch(error => {
                 console.error(error.message);
@@ -48,31 +59,17 @@ const Login = () => {
                 setLoginUserEmail(user.email);
                 toast.success('Signin successfully!');
                 navigate(from, { replace: true });
-                // const userData = {
-                //     name: user?.displayName,
-                //     email: user?.email,
-                //     type: 'Buyer',
-                //     isVerified: 'No',
-                // }
-                // fetch('https://phone-buy-and-sell-server.vercel.app/adduser', {
-                //     method: 'POST',
-                //     headers: {
-                //         'content-type': 'application/json'
-                //     },
-                //     body: JSON.stringify(userData)
-                // })
-                // .then(res => res.json())
-                // .then(data => {
-                //     getToken(userData?.email);
-                //     navigate(from, { replace: true });
-                // })
-
             })
             .catch(error => {
                 console.error(error.message);
                 setLoginError(error.message);
             })
     }
+
+    // const handleForgetPassword = () => {
+    //     const email = emailField.current.focus();
+    //     console.log(email);
+    // }
 
 
 
@@ -83,7 +80,7 @@ const Login = () => {
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="form-control w-full max-w-xs">
                         <label className="label"><span className="label-text">Email</span></label>
-                        <input type="text"
+                        <input type="text" ref={emailField}
                             {...register("email", {
                                 required: "Email Address is Required"
                             })}
@@ -101,7 +98,7 @@ const Login = () => {
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
 
-                        <label className="label"><span className="label-text">Forget Password?</span></label><br />
+                        <label className="label"><span className="label-text">Forget Password? <button className='text-secondary'><strong><Link to='/resetpassword'>Please Reset</Link></strong></button></span></label><br />
 
                     </div>
 

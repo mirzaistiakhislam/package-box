@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { addDays } from 'date-fns';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -15,8 +15,10 @@ const OrderBanner = ({ selectedStartDate, setSelectedStartDate, selectedEndDate,
         }
     ]);
 
-    setSelectedStartDate(state[0].startDate);
-    setSelectedEndDate(state[0].endDate);
+    useEffect(() => {
+        setSelectedStartDate(state[0].startDate);
+        setSelectedEndDate(state[0].endDate);
+    }, [state]);
 
 
     return (

@@ -8,11 +8,16 @@ import useToken from '../../hooks/useToken';
 const SignUp = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const { createUser, updateUser } = useContext(AuthContext);
+    const { createUser, updateUser, verifyEmail, user } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('');
     const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
+
+    // const { user } = useContext(AuthContext);
+    if (user) {
+        navigate('/', { replace: true });
+    }
 
     if (token) {
         navigate('/');
@@ -69,6 +74,8 @@ const SignUp = () => {
     //         })
     // }
 
+
+
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>
@@ -109,11 +116,9 @@ const SignUp = () => {
                     <div className="form-control w-full max-w-xs">
                         <label className="label"><span className="label-text">Photo URL</span></label>
                         <input type="photoURL"
-                            {...register("photoURL", {
-                                required: "photo is Required"
-                            })}
+                            {...register("photoURL")}
                             className="input input-bordered w-full max-w-xs" />
-                        {errors.photoURL && <p className='text-red-600'>{errors.photoURL?.photoURL}</p>}
+                        {/* {errors.photoURL && <p className='text-red-600'>{errors.photoURL?.photoURL}</p>} */}
                     </div>
 
                     <input className='btn btn-accent w-full mt-4' value='Sign Up' type="submit" />

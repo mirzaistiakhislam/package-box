@@ -9,8 +9,10 @@ import ManagePackages from "../../Pages/Dashboard/ManagePackages/ManagePackages"
 import MyOrder from "../../Pages/Dashboard/MyOrder/MyOrder";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
+import ResetPassword from "../../Pages/Login/ResetPassword";
 import Order from "../../Pages/Order/Order/Order";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
+import Profile from "../../Pages/Shared/Profile/Profile";
 import SignUp from "../../Pages/SignUp/SignUp";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
@@ -30,12 +32,20 @@ const router = createBrowserRouter([
                 element: <Login></Login>
             },
             {
+                path: '/resetpassword',
+                element: <ResetPassword></ResetPassword>
+            },
+            {
                 path: '/signup',
                 element: <SignUp></SignUp>
             },
             {
                 path: '/order',
-                element: <PrivateRoute><Order></Order></PrivateRoute>
+                element: <Order></Order>
+            },
+            {
+                path: '/profile',
+                element: <PrivateRoute><Profile></Profile></PrivateRoute>
             }
         ]
     },
